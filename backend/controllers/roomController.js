@@ -26,7 +26,7 @@ const getRoom = asyncHandler(async (req, res) => {
 });
 
 const createRoom = asyncHandler(async (req, res) => {
-  const { name, members } = req.body;
+  const { name, memberNames } = req.body;
 
   const roomExists = Boolean(await Room.findOne({ name }));
   if (roomExists) {
@@ -34,13 +34,14 @@ const createRoom = asyncHandler(async (req, res) => {
     throw new Error('Room already exists');
   }
 
+  const members = await User.find({ username: {$in: memberNames} });
   const newRoom = await Room.create({
     name,
-    members,
+    members: members.map((member) => member.username),
     owner: req.user._id,
   });
 
-  (await User.find({ _id: {$in: members} })).forEach(async (user) => {
+  members.forEach(async (user) => {
     await User.findByIdAndUpdate(user._id, {
       rooms: [...user.rooms, newRoom._id],
     });

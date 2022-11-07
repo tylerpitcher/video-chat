@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
+import { useMemo } from 'react';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Home from './pages/Home';
-import { useMemo } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material';
 import useUserStore from './features/user';
 
 function App() {

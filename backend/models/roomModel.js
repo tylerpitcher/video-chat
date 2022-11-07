@@ -8,9 +8,10 @@ const schema = mongoose.Schema({
   },
   owner: {
     type: mongoose.Types.ObjectId,
+    ref: 'User',
     required: [true, 'Please add a owner'],
   },
-  members: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
+  members: [String],
 });
 
 module.exports = mongoose.model('Room', schema);

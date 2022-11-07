@@ -17,7 +17,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error('Please add all fields');
   }
 
-  const userExists = Boolean(await User.findOne({ email: email }));
+  const userExists = Boolean(await User.findOne({ email }));
   if (userExists) {
     res.status(400);
     throw new Error('User already exists');
@@ -66,7 +66,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({ _id: {$ne: req.user._id} }).select('username');
-  res.json(users);
+  res.json(users.map((user) => user.username));
 });
 
 module.exports = { registerUser, loginUser, getAllUsers };
