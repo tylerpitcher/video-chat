@@ -36,10 +36,6 @@ function CreateRoom({ handleClose }) {
     });
   }, [user]);
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   return (
     <Modal
       open
