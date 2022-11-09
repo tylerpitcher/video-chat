@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import Room from './pages/Room';
 import useUserStore from './features/user';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home/>}/>
+          <Route path='/room/:roomId' element={<Room/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/login' element={<Login/>}/>
         </Routes>

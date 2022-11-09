@@ -1,14 +1,17 @@
-import { CardContent, CardHeader, Divider, Grid, Toolbar, Typography } from '@mui/material';
+import { Button, CardActions, CardContent, CardHeader, Divider, Grid, Toolbar, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { StyledCard } from '../components/StyledCard';
 import useUserStore from '../features/user';
 import Navbar from '../components/Navbar';
 import RoomsList from '../components/RoomsList';
+import CreateRoom from '../components/CreateRoom';
 
 function Home() {
   const { user } = useUserStore();
   const navigate = useNavigate();
+
+  const [showMenu, setMenu] = useState(false);
 
   useEffect(() => {
     if (!user) navigate('/login');
@@ -17,6 +20,7 @@ function Home() {
   return (
     <>
       <Navbar/>
+      {showMenu && <CreateRoom handleClose={() => setMenu(false)}/>}
       <Grid justifyContent='center' alignContent='center' style={{ width: '100vw', height: '100vh' }} container>
         <Grid item>
           <Toolbar/>
@@ -26,6 +30,11 @@ function Home() {
               subheader='Here are your rooms'
             />
             <Divider/>
+            <CardActions>
+              <Button onClick={() => setMenu(true)}>
+                Create Room
+              </Button>
+            </CardActions>
             <CardContent sx={{ height: '70%', overflowY: 'scroll' }}>
               <RoomsList/>
             </CardContent>
